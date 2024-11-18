@@ -1,10 +1,224 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mypod
+  annotations:
+    cattle.io/timestamp: '2024-11-18T17:23:05Z'
+    cni.projectcalico.org/containerID: 374f0b880d6be409f5f3ddd899b9f139f7de8e1e1d55af784e4e617206f67be2
+    cni.projectcalico.org/podIP: 10.42.126.229/32
+    cni.projectcalico.org/podIPs: 10.42.126.229/32
+  creationTimestamp: '2024-11-18T17:33:18Z'
+  generateName: pod1-65898c4675-
   labels:
-    env: prod
+    pod-template-hash: 65898c4675
+    workload.user.cattle.io/workloadselector: apps.deployment-default-pod1
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:cattle.io/timestamp: {}
+          f:generateName: {}
+          f:labels:
+            .: {}
+            f:pod-template-hash: {}
+            f:workload.user.cattle.io/workloadselector: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"e6928edf-8031-41e2-819b-421c1e50dee5"}: {}
+        f:spec:
+          f:containers:
+            k:{"name":"container-0"}:
+              .: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:lifecycle: {}
+              f:name: {}
+              f:resources: {}
+              f:securityContext:
+                .: {}
+                f:allowPrivilegeEscalation: {}
+                f:privileged: {}
+                f:readOnlyRootFilesystem: {}
+                f:runAsNonRoot: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+          f:dnsPolicy: {}
+          f:enableServiceLinks: {}
+          f:restartPolicy: {}
+          f:schedulerName: {}
+          f:securityContext: {}
+          f:terminationGracePeriodSeconds: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: '2024-11-18T17:33:18Z'
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:cni.projectcalico.org/containerID: {}
+            f:cni.projectcalico.org/podIP: {}
+            f:cni.projectcalico.org/podIPs: {}
+      manager: calico
+      operation: Update
+      subresource: status
+      time: '2024-11-18T17:33:19Z'
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:conditions:
+            k:{"type":"ContainersReady"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Initialized"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"PodReadyToStartContainers"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Ready"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+          f:containerStatuses: {}
+          f:hostIP: {}
+          f:hostIPs: {}
+          f:phase: {}
+          f:podIP: {}
+          f:podIPs:
+            .: {}
+            k:{"ip":"10.42.126.229"}:
+              .: {}
+              f:ip: {}
+          f:startTime: {}
+      manager: kubelet
+      operation: Update
+      subresource: status
+      time: '2024-11-18T17:33:22Z'
+  name: pod1-65898c4675-2qlxh
+  namespace: default
+  ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: pod1-65898c4675
+      uid: e6928edf-8031-41e2-819b-421c1e50dee5
+  resourceVersion: '119447'
+  uid: fe329888-d762-4416-b0a3-6eabd9eee1fe
 spec:
   containers:
-    - name: myfirstContainer
-      image: coolgourav147/nginx-custom
+    - image: nginx
+      imagePullPolicy: Always
+      lifecycle: {}
+      name: container-0
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        privileged: false
+        readOnlyRootFilesystem: false
+        runAsNonRoot: false
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-j65lv
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: worker-node-01
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-j65lv
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: '2024-11-18T17:33:22Z'
+      status: 'True'
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: '2024-11-18T17:33:18Z'
+      status: 'True'
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: '2024-11-18T17:33:22Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: '2024-11-18T17:33:22Z'
+      status: 'True'
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: '2024-11-18T17:33:18Z'
+      status: 'True'
+      type: PodScheduled
+  containerStatuses:
+    - containerID: >-
+        containerd://4c6247f73f71eccbeb3572d660c70048e41564ca4104067d0c9a7f4ec8debb40
+      image: docker.io/library/nginx:latest
+      imageID: >-
+        docker.io/library/nginx@sha256:bc5eac5eafc581aeda3008b4b1f07ebba230de2f27d47767129a6a905c84f470
+      lastState: {}
+      name: container-0
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: '2024-11-18T17:33:22Z'
+  hostIP: 172.16.20.4
+  hostIPs:
+    - ip: 172.16.20.4
+  phase: Running
+  podIP: 10.42.126.229
+  podIPs:
+    - ip: 10.42.126.229
+  qosClass: BestEffort
+  startTime: '2024-11-18T17:33:18Z'
